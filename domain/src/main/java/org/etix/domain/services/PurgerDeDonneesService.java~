@@ -1,0 +1,106 @@
+package com.itcentrex.domain.services;
+
+import com.itcentrex.domain.ddd.DomaineService;
+import com.itcentrex.domain.models.DetailCommission;
+import com.itcentrex.domain.models.OrdreFinancier;
+import com.itcentrex.domain.models.Transaction;
+import com.itcentrex.domain.models.enumeration.StatutDetailCommission;
+import com.itcentrex.domain.models.enumeration.StatutOrdreFinancier;
+import com.itcentrex.domain.models.enumeration.StatutTransaction;
+import com.itcentrex.domain.models.enumeration.StatutTransmission;
+import com.itcentrex.domain.ports.driver.bo_administration.PurgerDeDonneesPort;
+import com.itcentrex.domain.ports.driving.DetailCommissionRepo;
+import com.itcentrex.domain.ports.driving.OrdreFinancierRepo;
+import com.itcentrex.domain.ports.driving.TransactionRepo;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@DomaineService
+public class PurgerDeDonneesService implements PurgerDeDonneesPort {
+    private final TransactionRepo transactionRepo;
+    private final OrdreFinancierRepo ordreFinancierRepo;
+    private final DetailCommissionRepo detailCommissionRepo;
+
+    public PurgerDeDonneesService(TransactionRepo transactionRepo, OrdreFinancierRepo ordreFinancierRepo, DetailCommissionRepo detailCommissionRepo) {
+        this.transactionRepo = transactionRepo;
+        this.ordreFinancierRepo = ordreFinancierRepo;
+        this.detailCommissionRepo = detailCommissionRepo;
+    }
+
+    @Override
+    public List<Transaction> getLesTransactionsApurger(LocalDate dDebu, LocalDate dFin, StatutTransaction statutTransaction) {
+        return transactionRepo.getLesTransactionsByPeriodeAndStatutTransaction(dDebu, dFin, statutTransaction);
+    }
+
+    @Override
+    public List<OrdreFinancier> getLesOrdresFinanciersByTransaction(Integer idTransaction) {
+        Transaction transaction = transactionRepo.getTransactionById(idTransaction);
+        return ordreFinancierRepo.getLesOrdresFinanciersByTransaction(transaction);
+    }
+
+
+    @Override
+    public void purgerLesOrdresFinanciers(List<Integer> idsOrdreFinancier) {
+        for (Integer idOrdreFinancier : idsOrdreFinancier) {
+            OrdreFinancier ordreFinancier = ordreFinancierRepo.getOrdreFinancierById(idOrdreFinancier);
+            ordreFinancier.setStatutTransmission(StatutTransmission.PURGE);
+            ordreFinancierRepo.saveOrdreFinancier(ordreFinancier);
+        }
+
+    }
+
+    @Override
+    public List<DetailCommission> getLesDetailsDeCommissions(Integer idTransaction) {
+        Transaction transaction = transactionRepo.getTransactionById(idTransaction);
+        return detailCommissionRepo.getLesDetailsDeCommissionsByTransaction(transaction);
+    }
+
+    @Override
+    public void purgerLesDetailsDeCommissions(List<Integer> idsDetailCommission) {
+        for (Integer idDetailCommission : idsDetailCommission) {
+            DetailCommission detailCommission = detailCommissionRepo.getDetailCommissionById(idDetailCommission);
+            detailCommission.setStatutDetailCommission(StatutDetailCommission.PURGE);
+            detailCommissionRepo.saveDetailCommission(detailCommission);
+        }
+    }
+
+    @Override
+    public void purgerUnetransaction(Integer idTransaction) {
+
+        Transaction transaction = transactionRepo.getTransactionById(idTransaction);
+        transaction.setStatutTransaction(StatutTransaction.PURGEE);
+        transactionRepo.saveTransaction(transaction);
+
+    }
+
+    /**
+     * Remettre la transaction de la transaction à en_cours et l'ordre financier à initie
+     *
+     * @param idOrdreFinancier
+     * @return
+     */
+    @Override
+    public OrdreFinancier relancerOrdreFinancier(Integer idOrdreFinancier) {
+        //collecter l'ordre financier;
+        OrdreFinancier ordreFinancier = ordreFinancierRepo.getOrdreFinancierById(idOrdreFinancier);
+        //collecter la transaction par l'ordre financier collecté
+        Transaction transaction = ordreFinancier.getTransactionRattachee();
+        //activer la transaction
+        transaction.setStatutTransaction(StatutTransaction.EN_COURS);
+        transactionRepo.saveTransaction(transaction);
+        //activer l'ordre financier
+        ordreFinancier.setStatutOrdreFinancier(StatutOrdreFinancier.INITIE);
+        ordreFinancierRepo.saveOrdreFinancier(ordreFinancier);
+
+        return ordreFinancierRepo.relancerOrdreFinancier(idOrdreFinancier);
+    }
+
+    @Override
+    public List<Transaction> collecterLesTransactionsEchouesOuEnCoursParPeriode(LocalDate dDebu, LocalDate dFin) {
+        return this.transactionRepo.getTransactionByPeriode(dDebu, dFin).stream()
+                .filter(transaction -> transaction.getStatutTransaction().equals(StatutTransaction.ECHEC) || transaction.getStatutTransaction().equals(StatutTransaction.EN_COURS))
+                .toList();
+    }
+}
+
