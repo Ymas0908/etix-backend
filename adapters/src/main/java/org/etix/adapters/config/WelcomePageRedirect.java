@@ -19,12 +19,8 @@ public class WelcomePageRedirect implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
 
 
-        /*registry.addViewController("/")
-                .setViewName("redirect:/content/starter.xhtml");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);*/
-
         registry.addViewController("/")
-                .setViewName("redirect:/swagger-ui/index.html");
+                .setViewName("redirect:/content/starter.xhtml");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
