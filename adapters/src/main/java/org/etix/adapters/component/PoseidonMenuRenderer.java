@@ -30,6 +30,8 @@ import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.Separator;
 import org.primefaces.model.menu.Submenu;
+import org.primefaces.poseidon.component.LayoutWidgetBuilder;
+import org.primefaces.poseidon.component.PoseidonMenu;
 import org.primefaces.util.AjaxRequestBuilder;
 import org.primefaces.util.ComponentTraversalUtils;
 
@@ -67,9 +69,9 @@ public class PoseidonMenuRenderer extends BaseMenuRenderer {
     }
 
     protected void encodeElements(FacesContext context, AbstractMenu menu, List<MenuElement> elements, boolean root) throws IOException {
-        int size = elements.size();
+        Integer size = elements.size();
 
-        for (int i = 0; i < size; i++) {
+        for (Integer i = 0; i < size; i++) {
             encodeElement(context, menu, elements.get(i), root);
         }
     }
@@ -121,7 +123,7 @@ public class PoseidonMenuRenderer extends BaseMenuRenderer {
         ResponseWriter writer = context.getResponseWriter();
         String icon = submenu.getIcon();
         String label = submenu.getLabel();
-        int childrenElementsCount = submenu.getElementsCount();
+        Integer childrenElementsCount = submenu.getElementsCount();
 
         if (root) {
             writer.startElement("div", null);
@@ -182,7 +184,7 @@ public class PoseidonMenuRenderer extends BaseMenuRenderer {
         }
     }
 
-    protected void encodeToggleIcon(FacesContext context, Submenu submenu, int childrenElementsCount) throws IOException {
+    protected void encodeToggleIcon(FacesContext context, Submenu submenu, Integer childrenElementsCount) throws IOException {
         if (childrenElementsCount > 0) {
             ResponseWriter writer = context.getResponseWriter();
 
