@@ -32,6 +32,7 @@ public class EvenementService  implements EvenementPort {
 
     @Override
     public void deleteEvenement(Evenement idEvenement) {
+
         evenementRepo.deleteEvenement(idEvenement);
     }
 

@@ -37,6 +37,7 @@ public class CreerEvenementMB implements Serializable {
     @PostConstruct
     public void init() {
         evenement = new EvenementEntity();
+        evenementsList = new ArrayList<>();
         typeEvenementList = TypeEvenement.getTypes();
         this.collecterLesEvenements();
     }
@@ -84,6 +85,10 @@ public class CreerEvenementMB implements Serializable {
         evenementsList = new ArrayList<>();
         evenementsList = creerUnEvenementFacade.getAllEvenements();
 
+    }
+
+    public void resetCreerUnEvenement() {
+        evenement = new EvenementEntity();
     }
 
 
