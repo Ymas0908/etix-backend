@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
-    <ui:define name="title">Accueil - Gestion des Tickets</ui:define>
+    <ui:define name="title">Accueil - Gestion des Événements 2025</ui:define>
 
     <ui:define name="viewname">
         <li>ACCUEIL</li>
@@ -19,94 +19,72 @@
         <div class="grid">
             <!-- Section de bienvenue -->
             <div class="col-12">
-                <div class="card p-4 bg-blue-50 shadow-md">
-                    <h1 class="text-xl font-bold text-blue-800">Bienvenue dans l'application de gestion des tickets</h1>
-                    <p class="text-gray-600">Gérez efficacement vos tickets, suivez les problèmes et améliorez votre productivité.</p>
+                <div class="card p-4 bg-indigo-50 shadow-md">
+                    <h1 class="text-xl font-bold text-indigo-800">Bienvenue dans la plateforme de gestion des événements 2025</h1>
+                    <p class="text-gray-600">Planifiez, suivez et participez à des événements tout au long de l'année.</p>
                 </div>
             </div>
 
-            <!-- Statistiques rapides -->
+            <!-- Prochains événements -->
             <div class="col-12 md:col-6">
                 <div class="card">
-                    <h3>Statistiques</h3>
-                    <div class="grid">
-                        <div class="col-12 md:col-4">
-                            <p:card styleClass="bg-blue-100">
-                                <h4>Tickets Ouverts</h4>
-                                <p class="text-2xl font-bold">42</p>
-                            </p:card>
-                        </div>
-                        <div class="col-12 md:col-4">
-                            <p:card styleClass="bg-green-100">
-                                <h4>Tickets Résolus</h4>
-                                <p class="text-2xl font-bold">128</p>
-                            </p:card>
-                        </div>
-                        <div class="col-12 md:col-4">
-                            <p:card styleClass="bg-orange-100">
-                                <h4>Tickets En Cours</h4>
-                                <p class="text-2xl font-bold">15</p>
-                            </p:card>
-                        </div>
-                    </div>
+                    <h3>Prochains Événements</h3>
+                    <p:dataTable var="event" value="#{eventController.evenementsAVenir}" paginator="true" rows="5">
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{event.nom}"/>
+                        </p:column>
+                        <p:column headerText="Lieu">
+                            <h:outputText value="#{event.lieu}"/>
+                        </p:column>
+                        <p:column headerText="Date">
+                            <h:outputText value="#{event.date}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="fr"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </div>
 
-            <!-- Liste des tickets récents -->
+            <!-- Événements en cours -->
             <div class="col-12 md:col-6">
                 <div class="card">
-                    <form id="formRecherche">
-                        <h3>Tickets Récents</h3>
-                        <p:dataTable var="ticket" value="#{ticketController.ticketsRecents}" paginator="true" rows="5">
-                            <p:column headerText="ID">
-                                <h:outputText value="#{ticket.id}"/>
-                            </p:column>
-                            <p:column headerText="Titre">
-                                <h:outputText value="#{ticket.titre}"/>
-                            </p:column>
-                            <p:column headerText="Statut">
-                                <p:tag value="#{ticket.statut}" severity="#{ticket.statut == 'Ouvert' ? 'danger' : ticket.statut == 'Résolu' ? 'success' : 'warning'}"/>
-                            </p:column>
-                            <p:column headerText="Date">
-                                <h:outputText value="#{ticket.dateCreation}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="fr"/>
-                                </h:outputText>
-                            </p:column>
-                        </p:dataTable>
-                    </form>
-
+                    <h3>Événements en Cours</h3>
+                    <p:dataTable var="event" value="#{eventController.evenementsEnCours}" paginator="true" rows="5">
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{event.nom}"/>
+                        </p:column>
+                        <p:column headerText="Lieu">
+                            <h:outputText value="#{event.lieu}"/>
+                        </p:column>
+                        <p:column headerText="Date de Début">
+                            <h:outputText value="#{event.dateDebut}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="fr"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </div>
-
-            <!-- Graphique des tickets par statut -->
-<!--            <div class="col-12">-->
-<!--                <div class="card">-->
-<!--                    <h3>Répartition des Tickets par Statut</h3>-->
-<!--                    <p:chart type="pie" model="#{ticketController.pieModel}" style="height: 300px;"/>-->
-<!--                </div>-->
-<!--            </div>-->
 
             <!-- Actions rapides -->
             <div class="col-12">
                 <div class="card">
-                    <h:form id="formActionsRapides">
+                    <h:form id="formActions">
                         <h3>Actions Rapides</h3>
                         <div class="grid">
                             <div class="col-12 md:col-3">
-                                <p:commandButton value="Créer un Ticket" icon="pi pi-plus" styleClass="w-full" action="/creer-ticket.xhtml?faces-redirect=true"/>
+                                <p:commandButton value="Créer un Événement" icon="pi pi-plus" styleClass="w-full" action="/gestions-des-evenements/creer-un-evenement.xhtml"/>
                             </div>
                             <div class="col-12 md:col-3">
-                                <p:commandButton value="Voir tous les Tickets" icon="pi pi-list" styleClass="w-full" action="/liste-tickets.xhtml?faces-redirect=true"/>
+                                <p:commandButton value="Voir tous les Événements" icon="pi pi-list" styleClass="w-full" action="/gestions-des-evenements/consulter-les-evenements.xhtml"/>
                             </div>
                             <div class="col-12 md:col-3">
-                                <p:commandButton value="Statistiques Avancées" icon="pi pi-chart-bar" styleClass="w-full" action="/statistiques.xhtml?faces-redirect=true"/>
+                                <p:commandButton value="Statistiques" icon="pi pi-chart-bar" styleClass="w-full" action="/statistiques.xhtml?faces-redirect=true"/>
                             </div>
                             <div class="col-12 md:col-3">
                                 <p:commandButton value="Paramètres" icon="pi pi-cog" styleClass="w-full" action="/parametres.xhtml?faces-redirect=true"/>
                             </div>
                         </div>
                     </h:form>
-
                 </div>
             </div>
         </div>

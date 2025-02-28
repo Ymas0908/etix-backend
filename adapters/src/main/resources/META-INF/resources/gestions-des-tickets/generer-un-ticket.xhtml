@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Génération des Tickets</ui:define>
+
+    <ui:define name="content">
+        <h:form id="ticketsForm">
+            <div class="card">
+                <h4 class="font-bold my-3">Générer des tickets pour un événement</h4>
+
+                <div class="ui-fluid formgrid grid">
+                    <div class="field col-6">
+                        <p:outputLabel for="@next">Sélectionner un événement</p:outputLabel>
+                        <p:selectOneMenu id="concert" value="#{creerEvenementMB.evenement}"
+                                         required="true" requiredMessage="Veuillez sélectionner un événement">
+                            <f:selectItem itemLabel="Sélectionnez un événement" itemValue="#{null}" />
+                            <f:selectItems value="#{creerEvenementMB.evenementsList}"
+                                           var="concert" itemLabel="#{concert.nom}" itemValue="#{concert}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="field col-6">
+                        <p:outputLabel for="@next">Sélectionner un type de ticket</p:outputLabel>
+                        <p:selectOneMenu id="typeTicket" value="#{ticketMB.typeTicket}" required="true"
+                                         requiredMessage="Veuillez sélectionner un type de ticket">
+                            <f:selectItem itemLabel="Sélectionnez un type de ticket" itemValue="#{null}" />
+                            <f:selectItems value="#{ticketMB.typeTicketList}"
+                                           var="ticket" itemLabel="#{ticket}" itemValue="#{ticket}" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+
+                <div class="flex my-3">
+                    <p:commandButton value="Générer Tickets"
+                                     action="#{ticketMB.genererTicket()}"
+                                     update="ticketsForm"
+                                     process="ticketsForm"
+                                     icon="pi pi-plus" styleClass="w-auto"/>
+                </div>
+            </div>
+
+            <!-- Table des Tickets générés -->
+            <p:dataTable id="ticketsTable" value="#{ticketMB.ticketList}" var="ticket"
+                         rendered="#{not empty ticketMB.ticketList}" rows="10" paginator="true"
+                         paginatorPosition="bottom" styleClass="ticket-table">
+                <p:column headerText="Type de Ticket">
+                    <h:outputText value="#{ticket.types}" />
+                </p:column>
+                <p:column headerText="Date de génération">
+                    <h:outputText value="#{ticket.dateHeureCreation}" />
+                </p:column>
+                <p:column headerText="Actions">
+                    <p:commandButton value="Détails"
+                                     action="#{ticketMB.showTicketDetails(ticket)}"
+                                     update="detailsDialog"
+                                     oncomplete="PF('detailsDialog').show()" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <!-- DIALOGUE POUR AFFICHER LES DÉTAILS DU TICKET -->
+        <p:dialog id="detailsDialog" header="Détails du Ticket" widgetVar="detailsDialog" modal="true" width="500">
+            <h:panelGrid columns="2" rendered="#{ticketMB.ticket != null}">
+                <h:outputLabel value="Concert : " />
+                <h:outputText value="#{ticketMB.evenement.nom}" />
+
+                <h:outputLabel value="Type de Ticket : " />
+                <h:outputText value="#{ticketMB.typeTicket.types}" />
+
+                <h:outputLabel value="Date de génération : " />
+                <h:outputText value="#{ticketMB.ticket.dateHeureCreation}" />
+            </h:panelGrid>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

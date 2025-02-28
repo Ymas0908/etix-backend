@@ -2,21 +2,25 @@ package org.etix.domain.models;
 
 import org.etix.domain.models.enumerations.TypeTicket;
 
+import java.time.LocalDateTime;
+
 public class Ticket {
     private Integer id;
 
     private double prix;
     private int quantite;
     private TypeTicket typeTicket;
+    private LocalDateTime dateHeureCreation;
     private Evenement evenement;
     public Ticket() {
     }
 
-    public Ticket(Integer id, double prix, int quantite, TypeTicket typeTicket, Evenement evenement) {
+    public Ticket(Integer id, double prix, int quantite, TypeTicket typeTicket, LocalDateTime dateHeureCreation,Evenement evenement) {
         this.id = id;
         this.prix = prix;
         this.quantite = quantite;
         this.typeTicket = typeTicket;
+        this.dateHeureCreation = dateHeureCreation;
         this.evenement = evenement;
     }
 
@@ -25,6 +29,7 @@ public class Ticket {
         setPrix(builder.prix);
         setQuantite(builder.quantite);
         setTypeTicket(builder.typeTicket);
+        setDateHeureCreation(builder.dateHeureCreation);
         setEvenement(builder.evenement);
     }
 
@@ -60,6 +65,14 @@ public class Ticket {
         this.typeTicket = typeTicket;
     }
 
+    public LocalDateTime getDateHeureCreation() {
+        return dateHeureCreation;
+    }
+
+    public void setDateHeureCreation(LocalDateTime dateHeureCreation) {
+        this.dateHeureCreation = dateHeureCreation;
+    }
+
     public Evenement getEvenement() {
         return evenement;
     }
@@ -68,11 +81,13 @@ public class Ticket {
         this.evenement = evenement;
     }
 
+
     public static final class Builder {
         private Integer id;
         private double prix;
         private int quantite;
         private TypeTicket typeTicket;
+        private LocalDateTime dateHeureCreation;
         private Evenement evenement;
 
         public Builder() {
@@ -95,6 +110,11 @@ public class Ticket {
 
         public Builder typeTicket(TypeTicket typeTicket) {
             this.typeTicket = typeTicket;
+            return this;
+        }
+
+        public Builder dateHeureCreation(LocalDateTime dateHeureCreation) {
+           this.dateHeureCreation = dateHeureCreation;
             return this;
         }
 

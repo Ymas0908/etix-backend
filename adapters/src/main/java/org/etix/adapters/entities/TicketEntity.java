@@ -5,6 +5,9 @@ import lombok.*;
 import org.etix.domain.models.Ticket;
 import org.etix.domain.models.enumerations.TypeTicket;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,6 +25,7 @@ public class TicketEntity {
     private int quantite;
     @Enumerated(EnumType.STRING)
     private TypeTicket typeTicket;
+    private LocalDateTime dateHeureCreation;
     @ManyToOne
     @JoinColumn
     private EvenementEntity evenement;
@@ -33,6 +37,7 @@ public class TicketEntity {
                 .prix(ticket.getPrix())
                 .quantite(ticket.getQuantite())
                 .typeTicket(ticket.getTypeTicket())
+                .dateHeureCreation(ticket.getDateHeureCreation())
                 .evenement(ticket.getEvenement() != null ? EvenementEntity.toEntity(ticket.getEvenement()) : null)
                 .build();
     }
@@ -42,6 +47,7 @@ public class TicketEntity {
                 .prix(this.prix)
                 .quantite(this.quantite)
                 .typeTicket(this.typeTicket)
+                .dateHeureCreation(this.dateHeureCreation)
                 .evenement(this.evenement != null ? this.evenement.toDomain() : null)
                 .build();
     }
