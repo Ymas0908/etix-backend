@@ -20,7 +20,15 @@ public class TicketService implements TicketPort {
 
     @Override
     public Ticket saveTicket(Ticket ticket) {
-        return null;
+        if (ticket.getTypeTicket() == null) {
+            throw new IllegalArgumentException("Le ticket doit avoir un type");
+        }
+        if (ticket.getEvenement() == null) {
+            throw new IllegalArgumentException("Le ticket doit être lié à un évènement");
+        }
+        ticket.setEvenement(ticket.getEvenement());
+        ticket.setDateHeureCreation(LocalDateTime.now());
+        return ticketRepo.saveTicket(ticket);
     }
 
     @Override

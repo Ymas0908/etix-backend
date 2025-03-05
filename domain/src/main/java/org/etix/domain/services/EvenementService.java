@@ -49,6 +49,9 @@ public class EvenementService  implements EvenementPort {
 
     @Override
     public List<Evenement> getLesEvenementsByNom(String nom) {
+        if (nom == null) {
+            throw new IllegalArgumentException("L'évènement doit avoir un nom");
+        }
         return evenementRepo.getLesEvenementsByNom(nom);
     }
 
