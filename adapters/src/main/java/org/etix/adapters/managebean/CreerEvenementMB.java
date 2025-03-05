@@ -28,6 +28,7 @@ public class CreerEvenementMB implements Serializable {
 
     private List<EvenementEntity> evenementsList = new ArrayList<>();
     private EvenementEntity evenement;
+    private double prixTicket;
     private TypeEvenement typeEvenement;
     private List<TypeEvenement> typeEvenementList = new ArrayList<>();
 
@@ -46,7 +47,7 @@ public class CreerEvenementMB implements Serializable {
     public void creerUnEvenement() {
         try {
             creerUnEvenementFacade.creerUnEvenement(evenement);
-
+            resetCreerUnEvenement();
             System.out.println("Evenement créé" + evenement);
             FlashMessage.flash(FlashMessage.INFO, "Succès", "L'evenement à bien été crée.");
             this.collecterLesEvenements();

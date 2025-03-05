@@ -20,8 +20,8 @@ public class EvenementImpl implements EvenementRepo {
     }
 
     @Override
-    public void deleteEvenement(Evenement idEvenement) {
-        evenementRepository.delete(EvenementEntity.toEntity(idEvenement));
+    public void deleteEvenement(Evenement evenement) {
+        evenementRepository.delete(EvenementEntity.toEntity(evenement));
     }
 
     @Override

@@ -9,9 +9,9 @@ public class Evenement {
     private Integer id;
     private String nom;
     private String description;
-    private double prixTicketGP;
-    private double prixTicketVIP;
-    private double prixTicketVVIP;
+    private Integer prixTicketGP;
+    private Integer prixTicketVIP;
+    private Integer prixTicketVVIP;
     private String lieu;
     private LocalDateTime dateEvenement;
     private LocalDateTime dateHeureCreation;
@@ -20,7 +20,7 @@ public class Evenement {
     public Evenement() {
     }
 
-    public Evenement(Integer id, String nom,  String description,double prixTicketGP, double prixTicketVIP, double prixTicketVVIP, String lieu, LocalDateTime dateEvenement, LocalDateTime dateHeureCreation, TypeEvenement typeEvenement) {
+    public Evenement(Integer id, String nom,  String description,Integer prixTicketGP, Integer prixTicketVIP, Integer prixTicketVVIP, String lieu, LocalDateTime dateEvenement, LocalDateTime dateHeureCreation, TypeEvenement typeEvenement) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -59,27 +59,27 @@ public class Evenement {
         this.nom = nom;
     }
 
-    public double getPrixTicketGP() {
+    public Integer getPrixTicketGP() {
         return prixTicketGP;
     }
 
-    public void setPrixTicketGP(double prixTicketGP) {
+    public void setPrixTicketGP(Integer prixTicketGP) {
         this.prixTicketGP = prixTicketGP;
     }
 
-    public double getPrixTicketVVIP() {
+    public Integer getPrixTicketVVIP() {
         return prixTicketVVIP;
     }
 
-    public void setPrixTicketVVIP(double prixTicketVVIP) {
+    public void setPrixTicketVVIP(Integer prixTicketVVIP) {
         this.prixTicketVVIP = prixTicketVVIP;
     }
 
-    public double getPrixTicketVIP() {
+    public Integer getPrixTicketVIP() {
         return prixTicketVIP;
     }
 
-    public void setPrixTicketVIP(double prixTicketVIP) {
+    public void setPrixTicketVIP(Integer prixTicketVIP) {
         this.prixTicketVIP = prixTicketVIP;
     }
 

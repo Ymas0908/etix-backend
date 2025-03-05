@@ -9,7 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class CreerUnTicketFacade {
+public class GenererUnTicketFacade {
 
     private  TicketPort ticketPort;
 

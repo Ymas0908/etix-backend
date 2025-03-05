@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EvenementRepo {
     Evenement saveEvenement(Evenement evenement);
-    void deleteEvenement(Evenement evenement);
+    void deleteEvenement(Evenement idEvenement);
     Evenement updateEvenement(Evenement idEvenement);
 
     List<Evenement> getLesEvenementsByNom(String nom);

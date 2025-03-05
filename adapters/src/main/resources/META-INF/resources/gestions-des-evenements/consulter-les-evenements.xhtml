@@ -143,6 +143,29 @@
                                 <p:inputText readonly="true"
                                              value="#{creerEvenementMB.evenement.typeEvenement}"/>
                             </div>
+                            <div class="field col-12 md:col-6">
+                                <p:outputLabel for="@next" value="Prix ticket GP"/>
+                                <p:inputText readonly="true"
+                                             value="#{creerEvenementMB.evenement.prixTicketGP}">
+
+                                </p:inputText>
+
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <p:outputLabel for="@next" value="Prix ticket VIP"/>
+                                <p:inputText readonly="true"
+                                             value="#{creerEvenementMB.evenement.prixTicketVIP}">
+                                </p:inputText>
+
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <p:outputLabel for="@next" value="Prix ticket VVIP"/>
+                                <p:inputText readonly="true"
+                                             value="#{creerEvenementMB.evenement.prixTicketVVIP}">
+
+                                </p:inputText>
+
+                            </div>
                             <div class="field col-12 md:col-12">
                                 <p:outputLabel for="@next" value="Description"/>
                                 <p:inputTextarea readonly="true"
@@ -156,7 +179,7 @@
                         <div class="flex my-3">
                             <p:commandButton value="Modifier"
                                              action="#{creerEvenementMB.modifierUnEvenement()}"
-                                             process="formEvenement"
+                                             process="detailEvenementForm"
                                              oncomplete="PF('detailEvenementSideBar').hide()"
                                              update="formEvenement"
                                              icon="pi pi-check" styleClass="w-auto mr-2"/>

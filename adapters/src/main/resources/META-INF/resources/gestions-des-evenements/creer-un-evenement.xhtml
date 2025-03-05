@@ -5,23 +5,13 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
-    <ui:define name="title">Gestion des évènements | Créer un évènement</ui:define>
-
-    <ui:define name="viewname">
-        <li>GESTION DES EVENEMENTS</li>
-        <li><i class="pi pi-chevron-right"></i></li>
-        <li>
-            <p:link outcome="/gestions-des-evenements/creer-un-evenement.xhtml">
-                CREATION D'UN NOUVEL EVENEMENT
-            </p:link>
-        </li>
-    </ui:define>
+    <ui:define name="title">Création d'un événement</ui:define>
 
     <ui:define name="content">
         <h:form id="formEvenement">
             <div class="grid">
                 <div class="col flex align-items-center justify-content-center">
-                    <div class="card col-12 mt-8 md:col-8">
+                    <div class="card col-12 mt-12 md:col-">
                         <div class="grid">
                             <div class="col-12">
                                 <h4 class="font-bold my-3">Création d'un nouvel événement</h4>
@@ -51,7 +41,6 @@
                                                      value="#{creerEvenementMB.evenement.lieu}"/>
                                     </div>
 
-
                                     <div class="field col-6">
                                         <p:outputLabel for="dateEvenement">Date et heure de l'événement</p:outputLabel>
                                         <p:calendar id="dateEvenement"
@@ -74,6 +63,34 @@
                                         </p:selectOneMenu>
                                     </div>
 
+                                    <!-- Ajout des champs pour les prix des tickets -->
+                                    <div class="field col-6">
+                                        <p:outputLabel for="prixGP">Prix Ticket GP</p:outputLabel>
+                                        <p:inputText id="prixGP"
+                                                     placeholder="Prix du ticket GP"
+                                                     required="true"
+                                                     requiredMessage="Le prix du ticket GP est obligatoire"
+                                                     value="#{creerEvenementMB.evenement.prixTicketGP}"/>
+                                    </div>
+
+                                    <div class="field col-6">
+                                        <p:outputLabel for="prixVIP">Prix Ticket VIP</p:outputLabel>
+                                        <p:inputText id="prixVIP"
+                                                     placeholder="Prix du ticket VIP"
+                                                     required="true"
+                                                     requiredMessage="Le prix du ticket VIP est obligatoire"
+                                                     value="#{creerEvenementMB.evenement.prixTicketVIP}"/>
+                                    </div>
+
+                                    <div class="field col-12">
+                                        <p:outputLabel for="prixVVIP">Prix Ticket VVIP</p:outputLabel>
+                                        <p:inputText id="prixVVIP"
+                                                     placeholder="Prix du ticket VVIP"
+                                                     required="true"
+                                                     requiredMessage="Le prix du ticket VVIP est obligatoire"
+                                                     value="#{creerEvenementMB.evenement.prixTicketVVIP}"/>
+                                    </div>
+
                                     <div class="field col-12">
                                         <p:outputLabel for="description" value="Description"/>
                                         <p:inputTextarea id="description"
@@ -92,7 +109,7 @@
                                                      process="formEvenement"
                                                      icon="pi pi-save" styleClass="w-auto mr-2"/>
 
-                                    <!-- Bouton Annuler corrigé -->
+                                    <!-- Bouton Annuler -->
                                     <p:commandButton value="Annuler"
                                                      actionListener="#{creerEvenementMB.resetCreerUnEvenement()}"
                                                      update="formEvenement"

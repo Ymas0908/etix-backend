@@ -20,22 +20,15 @@ public class TicketService implements TicketPort {
 
     @Override
     public Ticket saveTicket(Ticket ticket) {
-        // Vérifier que le ticket a un type
         if (ticket.getTypeTicket() == null) {
             throw new IllegalArgumentException("Le ticket doit avoir un type");
         }
-
-        // Vérifier que le ticket est lié à un événement
         if (ticket.getEvenement() == null) {
             throw new IllegalArgumentException("Le ticket doit être lié à un évènement");
         }
-
-        // Assigner la date et l'heure de création du ticket
+        ticket.setEvenement(ticket.getEvenement());
         ticket.setDateHeureCreation(LocalDateTime.now());
-
-        // Enregistrer le ticket en base de données
-        // Si vous utilisez un repository ou une interface JPA pour la persistance, vous pouvez le faire ainsi :
-        return ticketRepo.saveTicket(ticket);  // ticketRepo.save(ticket) va persister le ticket
+        return ticketRepo.saveTicket(ticket);
     }
 
     @Override

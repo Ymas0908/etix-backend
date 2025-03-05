@@ -14,22 +14,22 @@
 
                 <div class="ui-fluid formgrid grid">
                     <div class="field col-6">
-                        <p:outputLabel for="@next">Sélectionner un événement</p:outputLabel>
-                        <p:selectOneMenu id="concert" value="#{creerEvenementMB.evenement}"
-                                         required="true" requiredMessage="Veuillez sélectionner un événement">
+                        <p:outputLabel for="concert">Sélectionner un événement</p:outputLabel>
+                        <p:selectOneMenu id="concert" value="#{creerEvenementMB.evenement}" required="true"
+                                         requiredMessage="Veuillez sélectionner un événement">
                             <f:selectItem itemLabel="Sélectionnez un événement" itemValue="#{null}" />
-                            <f:selectItems value="#{creerEvenementMB.evenementsList}"
-                                           var="concert" itemLabel="#{concert.nom}" itemValue="#{concert}" />
+                            <f:selectItems value="#{creerEvenementMB.evenementsList}" var="concert" itemLabel="#{concert.nom}"
+                                           itemValue="#{concert}" />
                         </p:selectOneMenu>
                     </div>
 
                     <div class="field col-6">
-                        <p:outputLabel for="@next">Sélectionner un type de ticket</p:outputLabel>
+                        <p:outputLabel for="typeTicket">Sélectionner un type de ticket</p:outputLabel>
                         <p:selectOneMenu id="typeTicket" value="#{ticketMB.typeTicket}" required="true"
                                          requiredMessage="Veuillez sélectionner un type de ticket">
                             <f:selectItem itemLabel="Sélectionnez un type de ticket" itemValue="#{null}" />
-                            <f:selectItems value="#{ticketMB.typeTicketList}"
-                                           var="ticket" itemLabel="#{ticket}" itemValue="#{ticket}" />
+                            <f:selectItems value="#{ticketMB.typeTicketList}" var="ticket" itemLabel="#{ticket}"
+                                           itemValue="#{ticket}" />
                         </p:selectOneMenu>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                          rendered="#{not empty ticketMB.ticketList}" rows="10" paginator="true"
                          paginatorPosition="bottom" styleClass="ticket-table">
                 <p:column headerText="Type de Ticket">
-                    <h:outputText value="#{ticket.types}" />
+                    <h:outputText value="#{ticket.typeTicket}" />
                 </p:column>
                 <p:column headerText="Date de génération">
                     <h:outputText value="#{ticket.dateHeureCreation}" />
@@ -66,10 +66,10 @@
         <p:dialog id="detailsDialog" header="Détails du Ticket" widgetVar="detailsDialog" modal="true" width="500">
             <h:panelGrid columns="2" rendered="#{ticketMB.ticket != null}">
                 <h:outputLabel value="Concert : " />
-                <h:outputText value="#{ticketMB.evenement.nom}" />
+                <h:outputText value="#{ticketMB.ticket.evenement.nom}" />
 
                 <h:outputLabel value="Type de Ticket : " />
-                <h:outputText value="#{ticketMB.typeTicket.types}" />
+                <h:outputText value="#{ticketMB.ticket.typeTicket}" />
 
                 <h:outputLabel value="Date de génération : " />
                 <h:outputText value="#{ticketMB.ticket.dateHeureCreation}" />

@@ -5,9 +5,10 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.etix.adapters.driver.facades.CreerUnTicketFacade;
+import org.etix.adapters.driver.facades.GenererUnTicketFacade;
 import org.etix.adapters.entities.EvenementEntity;
 import org.etix.adapters.entities.TicketEntity;
+import org.etix.adapters.notification.FlashMessage;
 import org.etix.domain.models.enumerations.TypeTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,7 +30,7 @@ public class TicketMB implements Serializable  {
     private EvenementEntity evenement;
 
     @Autowired
-    private CreerUnTicketFacade creerUnTicketFacade;
+    private GenererUnTicketFacade genererUnTicketFacade;
 
 
 
@@ -44,9 +45,17 @@ public class TicketMB implements Serializable  {
 
 
     public void genererTicket() {
-
-
+        try {
+            if (ticket.getEvenement() == null) {
+                System.out.println("Événement non défini pour le ticket.");
+            }
+            ticket = genererUnTicketFacade.creerUnTicket(ticket);
+        } catch (Exception e) {
+            e.printStackTrace();
+            FlashMessage.flash(FlashMessage.ERROR, "Erreur", "Une erreur s'est produite.");
+        }
     }
+
 
 
 

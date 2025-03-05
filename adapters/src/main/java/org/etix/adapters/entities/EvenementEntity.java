@@ -22,9 +22,11 @@ public class EvenementEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private Blob imageEvenement;
     private String lieu;
     private String description;
+    private double prixTicketGP;
+    private double prixTicketVIP;
+    private double prixTicketVVIP;
     private LocalDateTime dateEvenement;
     private LocalDateTime dateHeureCreation;
     @Enumerated(EnumType.STRING)
@@ -34,9 +36,11 @@ public class EvenementEntity {
         return EvenementEntity.builder()
                 .id(evenement.getId())
                 .nom(evenement.getNom())
-                .imageEvenement(evenement.getImageEvenement())
                 .lieu(evenement.getLieu())
                 .description(evenement.getDescription())
+                .prixTicketGP(evenement.getPrixTicketGP())
+                .prixTicketVIP(evenement.getPrixTicketVIP())
+                .prixTicketVVIP(evenement.getPrixTicketVVIP())
                 .dateEvenement(evenement.getDateEvenement())
                 .dateHeureCreation(evenement.getDateHeureCreation())
                 .typeEvenement(evenement.getTypeEvenement())
@@ -47,9 +51,11 @@ public class EvenementEntity {
         return new Evenement.Builder()
                 .id(this.id)
                 .nom(this.nom)
-                .imageEvenement(this.imageEvenement)
                 .lieu(this.lieu)
                 .description(this.description)
+                .prixTicketGP(this.prixTicketGP)
+                .prixTicketVIP(this.prixTicketVIP)
+                .prixTicketVVIP(this.prixTicketVVIP)
                 .dateEvenement(this.dateEvenement)
                 .dateHeureCreation(this.dateHeureCreation)
                 .typeEvenement(this.typeEvenement)
