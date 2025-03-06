@@ -36,7 +36,7 @@
 
                 <div class="flex my-3">
                     <p:commandButton value="Générer Tickets"
-                                     action="#{ticketMB.genererTicket()}"
+                                     action="#{ticketMB.creerUnTicket()}"
                                      update="ticketsForm"
                                      process="ticketsForm"
                                      icon="pi pi-plus" styleClass="w-auto"/>
@@ -44,22 +44,108 @@
             </div>
 
             <!-- Table des Tickets générés -->
-            <p:dataTable id="ticketsTable" value="#{ticketMB.ticketList}" var="ticket"
-                         rendered="#{not empty ticketMB.ticketList}" rows="10" paginator="true"
-                         paginatorPosition="bottom" styleClass="ticket-table">
-                <p:column headerText="Type de Ticket">
-                    <h:outputText value="#{ticket.typeTicket}" />
-                </p:column>
-                <p:column headerText="Date de génération">
-                    <h:outputText value="#{ticket.dateHeureCreation}" />
-                </p:column>
-                <p:column headerText="Actions">
-                    <p:commandButton value="Détails"
-                                     action="#{ticketMB.showTicketDetails(ticket)}"
-                                     update="detailsDialog"
-                                     oncomplete="PF('detailsDialog').show()" />
-                </p:column>
-            </p:dataTable>
+            <div class="grid">
+                <div class="col-12">
+                    <p:dataTable widgetVar="dtTickets"
+                                 id="dtTickets"
+                                 var="ticket"
+                                 value="#{ticketMB.ticketList}"
+                                 reflow="true"
+                                 emptyMessage="Pas de données"
+                                 rowKey="#{ticket.id}"
+                                 scrollable="true"
+                                 scrollHeight="500">
+
+                        <!-- Colonne pour Date de création -->
+                        <p:column headerText="Date de création">
+                            <h:outputText value="#{ticket.dateHeureCreation}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <!-- Colonne pour Nom de l'événement -->
+                        <p:column headerText="Nom de l'événement" filterBy="#{evenement.nom}">
+                            <h:outputText value="#{ticket.evenement.nom}"/>
+                        </p:column>
+
+                        <!-- Colonne pour Lieu de l'événement -->
+                        <p:column headerText="Lieu de l'événement" filterBy="#{evenement.lieu}">
+                            <h:outputText value="#{ticket.evenement.lieu}"/>
+                        </p:column>
+
+                        <!-- Colonne pour Date de l'événement -->
+                        <p:column headerText="Date de l'événement" filterBy="#{evenement.dateEvenement}">
+                            <h:outputText value="#{ticket.evenement.dateEvenement}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <!-- Colonne pour Type d'événement -->
+                        <p:column headerText="Type d'événement" style="width: 200px" filterBy="#{evenement.typeEvenement}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('dtTickets').filter()"
+                                                 styleClass="ui-custom-filter"
+                                                 value="#{creerEvenementMB.typeEvenement}">
+                                    <f:selectItem itemLabel="--TOUS--" itemValue=""/>
+                                    <f:selectItems value="#{creerEvenementMB.typeEvenementList}" var="statut"
+                                                   itemLabel="#{statut}" itemValue="#{statut}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{ticket.evenement.typeEvenement}"/>
+                        </p:column>
+
+                        <!-- Colonne pour Type de ticket -->
+                        <p:column headerText="Type de ticket" filterBy="#{ticket.typeTicket}">
+                            <h:outputText value="#{ticket.typeTicket}"/>
+                        </p:column>
+
+                        <!-- Colonne pour Prix -->
+                        <p:column headerText="Prix" filterBy="#{ticket.prix}">
+                            <h:outputText value="#{ticket.prix}"/>
+                        </p:column>
+
+                        <!-- Colonne pour Quantité -->
+                        <p:column headerText="Quantité" filterBy="#{ticket.quantite}">
+                            <h:outputText value="#{ticket.quantite}"/>
+                        </p:column>
+
+                        <!-- Colonne pour Actions -->
+                        <p:column headerText="Actions" width="7em">
+                            <p:commandButton icon="pi pi-eye" title="Voir les détails"
+                                             styleClass="rounded-button mr-2"
+                                             oncomplete="PF('detailEvenementSideBar').show()"
+                                             update="detailEvenementForm">
+                                <f:setPropertyActionListener value="#{ticket.evenement}"
+                                                             target="#{creerEvenementMB.evenement}"/>
+                            </p:commandButton>
+
+                            <p:commandButton icon="pi pi-trash" title="Supprimer"
+                                             styleClass="rounded-button"
+                                             action="#{ticketMB.supprimerTicket(ticket)}"
+                                             process="formEvenement"
+                                             update="formEvenement">
+                                <p:confirm header="Confirmation"
+                                           message="Voulez-vous supprimer ce ticket ?"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+
+                <!-- Confirmation Dialog pour la suppression -->
+                <div class="col-12">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+                                     responsive="true" styleClass="col-12">
+                        <div class="flex flex-column align-items-start ">
+                            <div class="flex gap-2 my-2">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes "/>
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-yes "/>
+                            </div>
+                        </div>
+                    </p:confirmDialog>
+                </div>
+
+            </div>
         </h:form>
 
         <!-- DIALOGUE POUR AFFICHER LES DÉTAILS DU TICKET -->

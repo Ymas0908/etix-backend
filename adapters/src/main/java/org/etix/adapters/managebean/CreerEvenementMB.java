@@ -9,6 +9,7 @@ import org.etix.adapters.driver.facades.CreerUnEvenementFacade;
 import org.etix.adapters.entities.EvenementEntity;
 import org.etix.adapters.notification.FlashMessage;
 import org.etix.domain.models.enumerations.TypeEvenement;
+import org.etix.domain.models.enumerations.TypeTicket;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,6 +30,8 @@ public class CreerEvenementMB implements Serializable {
     private List<EvenementEntity> evenementsList = new ArrayList<>();
     private EvenementEntity evenement;
     private double prixTicket;
+    private TypeTicket typeTicket;
+    private List<TypeTicket> typeTicketList = new ArrayList<>();
     private TypeEvenement typeEvenement;
     private List<TypeEvenement> typeEvenementList = new ArrayList<>();
 
@@ -38,6 +41,7 @@ public class CreerEvenementMB implements Serializable {
     @PostConstruct
     public void init() {
         evenement = new EvenementEntity();
+        typeTicketList = TypeTicket.getTypes();
         evenementsList = new ArrayList<>();
         typeEvenementList = TypeEvenement.getTypes();
         this.collecterLesEvenements();

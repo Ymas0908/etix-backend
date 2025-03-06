@@ -23,7 +23,7 @@
                 <div class="col flex align-items-center justify-content-center">
                     <div class="card col-12 mt-12 md:col-">
                         <div class="grid">
-                            <div class="col-12">
+                            <div class="col-12"> 
                                 <h4 class="font-bold my-3">Création d'un nouvel événement</h4>
                                 <div class="my-3">
                                     <span>

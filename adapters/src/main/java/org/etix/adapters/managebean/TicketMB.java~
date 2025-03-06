@@ -22,9 +22,9 @@ import java.util.List;
 @Setter
 public class TicketMB implements Serializable  {
 
-    private TicketEntity ticket;
+    private TicketEntity ticket = new TicketEntity();
     private TypeTicket typeTicket;
-    private List<TypeTicket> typeTicketList = new ArrayList<>();
+    private List<TypeTicket> typeTicketList = TypeTicket.getTypes();
     private List<TicketEntity> ticketList = new ArrayList<>();
     private List<EvenementEntity> evenementList = new ArrayList<>();
     private EvenementEntity evenement;
