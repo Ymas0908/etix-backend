@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@ViewScoped
 @Getter
 @Setter
 public class CreerEvenementMB implements Serializable {
@@ -29,7 +28,6 @@ public class CreerEvenementMB implements Serializable {
 
     private List<EvenementEntity> evenementsList = new ArrayList<>();
     private EvenementEntity evenement;
-    private double prixTicket;
     private TypeTicket typeTicket;
     private List<TypeTicket> typeTicketList = new ArrayList<>();
     private TypeEvenement typeEvenement;
@@ -78,10 +76,11 @@ public class CreerEvenementMB implements Serializable {
     public void supprimerUnEvenement() {
       try {
           creerUnEvenementFacade.supprimerUnEvenement(evenement);
-          System.out.println("Evenement supprimé" + evenement);
-          FlashMessage.flash(FlashMessage.INFO, "Succès", "L'evenement à bien été supprimé.");
-          PrimeFaces.current().ajax().update("formEvenement");
           this.collecterLesEvenements();
+          PrimeFaces.current().ajax().update("formEvenement");
+          System.out.println("Evenement supprimé" + evenement.getNom());
+          FlashMessage.flash(FlashMessage.INFO, "Succès", "L'evenement à bien été supprimé.");
+
       } catch (Exception e) {
           FlashMessage.flash(FlashMessage.ERROR, "Erreur", "Une erreur s'est produite.");
       }

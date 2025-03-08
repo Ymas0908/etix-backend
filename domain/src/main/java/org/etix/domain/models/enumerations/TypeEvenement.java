@@ -8,7 +8,7 @@ public enum TypeEvenement {
     CINEMA,
     FESTIVAL,
     EXPOSITION,
-    RELEASE_PART,
+    RELEASE_PARTY,
 
     MATCH;
 

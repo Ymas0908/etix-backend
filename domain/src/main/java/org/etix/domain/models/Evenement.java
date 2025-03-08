@@ -9,10 +9,10 @@ public class Evenement {
     private Integer id;
     private String nom;
     private String description;
-    private double prixTicketGP;
-    private double prixTicketVIP;
-    private double prixTicketVVIP;
     private String lieu;
+    private Double prixTicketGP;
+    private Double prixTicketVIP;
+    private Double prixTicketVVIP;
     private LocalDateTime dateEvenement;
     private LocalDateTime dateHeureCreation;
     private TypeEvenement typeEvenement;
@@ -20,27 +20,17 @@ public class Evenement {
     public Evenement() {
     }
 
-    public Evenement(Integer id, String nom,  String description,double prixTicketGP, double prixTicketVIP, double prixTicketVVIP, String lieu, LocalDateTime dateEvenement, LocalDateTime dateHeureCreation, TypeEvenement typeEvenement) {
+    public Evenement(Integer id, String nom, String description, String lieu, Double prixTicketGP, Double prixTicketVIP, Double prixTicketVVIP, LocalDateTime dateEvenement, LocalDateTime dateHeureCreation, TypeEvenement typeEvenement) {
         this.id = id;
         this.nom = nom;
         this.description = description;
+        this.lieu = lieu;
         this.prixTicketGP = prixTicketGP;
         this.prixTicketVIP = prixTicketVIP;
         this.prixTicketVVIP = prixTicketVVIP;
-        this.lieu = lieu;
         this.dateEvenement = dateEvenement;
         this.dateHeureCreation = dateHeureCreation;
         this.typeEvenement = typeEvenement;
-    }
-
-    private Evenement(Builder builder) {
-        setId(builder.id);
-        setNom(builder.nom);
-        setDescription(builder.description);
-        setLieu(builder.lieu);
-        setDateEvenement(builder.dateEvenement);
-        setDateHeureCreation(builder.dateHeureCreation);
-        setTypeEvenement(builder.typeEvenement);
     }
 
     public Integer getId() {
@@ -59,30 +49,6 @@ public class Evenement {
         this.nom = nom;
     }
 
-    public double getPrixTicketGP() {
-        return prixTicketGP;
-    }
-
-    public void setPrixTicketGP(double prixTicketGP) {
-        this.prixTicketGP = prixTicketGP;
-    }
-
-    public double getPrixTicketVVIP() {
-        return prixTicketVVIP;
-    }
-
-    public void setPrixTicketVVIP(double prixTicketVVIP) {
-        this.prixTicketVVIP = prixTicketVVIP;
-    }
-
-    public double getPrixTicketVIP() {
-        return prixTicketVIP;
-    }
-
-    public void setPrixTicketVIP(double prixTicketVIP) {
-        this.prixTicketVIP = prixTicketVIP;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -97,6 +63,30 @@ public class Evenement {
 
     public void setLieu(String lieu) {
         this.lieu = lieu;
+    }
+
+    public Double getPrixTicketGP() {
+        return prixTicketGP;
+    }
+
+    public void setPrixTicketGP(Double prixTicketGP) {
+        this.prixTicketGP = prixTicketGP;
+    }
+
+    public Double getPrixTicketVIP() {
+        return prixTicketVIP;
+    }
+
+    public void setPrixTicketVIP(Double prixTicketVIP) {
+        this.prixTicketVIP = prixTicketVIP;
+    }
+
+    public Double getPrixTicketVVIP() {
+        return prixTicketVVIP;
+    }
+
+    public void setPrixTicketVVIP(Double prixTicketVVIP) {
+        this.prixTicketVVIP = prixTicketVVIP;
     }
 
     public LocalDateTime getDateEvenement() {
@@ -123,16 +113,27 @@ public class Evenement {
         this.typeEvenement = typeEvenement;
     }
 
+    private Evenement(Builder builder) {
+        id = builder.id;
+        nom = builder.nom;
+        description = builder.description;
+        lieu = builder.lieu;
+        prixTicketGP = builder.prixTicketGP;
+        prixTicketVIP = builder.prixTicketVIP;
+        prixTicketVVIP = builder.prixTicketVVIP;
+        dateEvenement = builder.dateEvenement;
+        dateHeureCreation = builder.dateHeureCreation;
+        typeEvenement = builder.typeEvenement;
+    }
 
     public static final class Builder {
         private Integer id;
         private String nom;
-        private Blob imageEvenement;
         private String description;
-        private double prixTicketGP;
-        private double prixTicketVIP;
-        private double prixTicketVVIP;
         private String lieu;
+        private Double prixTicketGP;
+        private Double prixTicketVIP;
+        private Double prixTicketVVIP;
         private LocalDateTime dateEvenement;
         private LocalDateTime dateHeureCreation;
         private TypeEvenement typeEvenement;
@@ -140,54 +141,53 @@ public class Evenement {
         public Builder() {
         }
 
-        public Builder id(Integer val) {
-            id = val;
+        public Builder id(Integer id) {
+            this.id = id;
             return this;
         }
 
-        public Builder nom(String val) {
-            nom = val;
+        public Builder nom(String nom) {
+            this.nom = nom;
             return this;
         }
 
-
-        public Builder description(String val) {
-            description = val;
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
 
-        public Builder lieu(String val) {
-            lieu = val;
+        public Builder lieu(String lieu) {
+            this.lieu = lieu;
             return this;
         }
 
-        public Builder dateEvenement(LocalDateTime val) {
-            dateEvenement = val;
-            return this;
-        }
-
-        public Builder dateHeureCreation(LocalDateTime val) {
-            dateHeureCreation = val;
-            return this;
-        }
-
-        public Builder typeEvenement(TypeEvenement val) {
-            typeEvenement = val;
-            return this;
-        }
-
-        public Builder prixTicketGP(double prixTicketGP) {
+        public Builder prixTicketGP(Double prixTicketGP) {
             this.prixTicketGP = prixTicketGP;
             return this;
         }
 
-        public Builder prixTicketVVIP(double prixTicketVVIP) {
+        public Builder prixTicketVIP(Double prixTicketVIP) {
+            this.prixTicketVIP = prixTicketVIP;
+            return this;
+        }
+
+        public Builder prixTicketVVIP(Double prixTicketVVIP) {
             this.prixTicketVVIP = prixTicketVVIP;
             return this;
         }
 
-        public Builder prixTicketVIP(double prixTicketVIP) {
-            this.prixTicketVIP = prixTicketVIP;
+        public Builder dateEvenement(LocalDateTime dateEvenement) {
+            this.dateEvenement = dateEvenement;
+            return this;
+        }
+
+        public Builder dateHeureCreation(LocalDateTime dateHeureCreation) {
+            this.dateHeureCreation = dateHeureCreation;
+            return this;
+        }
+
+        public Builder typeEvenement(TypeEvenement typeEvenement) {
+            this.typeEvenement = typeEvenement;
             return this;
         }
 

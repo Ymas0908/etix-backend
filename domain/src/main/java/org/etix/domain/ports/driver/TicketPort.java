@@ -7,7 +7,7 @@ import java.util.List;
 public interface TicketPort {
 
 
-   Ticket saveTicket(Ticket ticket);
+   Ticket creerTicket(Ticket ticket);
 
     List<Ticket> getTicketByEvenement(Integer idEvenement);
 

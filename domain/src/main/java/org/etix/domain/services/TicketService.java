@@ -19,7 +19,7 @@ public class TicketService implements TicketPort {
 
 
     @Override
-    public Ticket saveTicket(Ticket ticket) {
+    public Ticket creerTicket(Ticket ticket) {
         // Vérifier que le ticket a un type
         if (ticket.getTypeTicket() == null) {
             throw new IllegalArgumentException("Le ticket doit avoir un type");
@@ -30,12 +30,26 @@ public class TicketService implements TicketPort {
             throw new IllegalArgumentException("Le ticket doit être lié à un évènement");
         }
 
-        // Assigner la date et l'heure de création du ticket
+        // Assigner le prix du ticket en fonction du type de ticket et de l'événement
+        switch (ticket.getTypeTicket()) {
+            case GP:
+                ticket.setPrix(ticket.getEvenement().getPrixTicketGP());  // Assigner le prix GP
+                break;
+            case VIP:
+                ticket.setPrix(ticket.getEvenement().getPrixTicketVIP());  // Assigner le prix VIP
+                break;
+            case VVIP:
+                ticket.setPrix(ticket.getEvenement().getPrixTicketVVIP());  // Assigner le prix VVIP
+                break;
+            default:
+                throw new IllegalArgumentException("Type de ticket inconnu");
+        }
+
+        // Assigner la date de création
         ticket.setDateHeureCreation(LocalDateTime.now());
 
-        // Enregistrer le ticket en base de données
-        // Si vous utilisez un repository ou une interface JPA pour la persistance, vous pouvez le faire ainsi :
-        return ticketRepo.saveTicket(ticket);  // ticketRepo.save(ticket) va persister le ticket
+        // Persister le ticket
+        return ticketRepo.saveTicket(ticket);  // ticketRepo.save(ticket) persiste le ticket dans la base de données
     }
 
     @Override

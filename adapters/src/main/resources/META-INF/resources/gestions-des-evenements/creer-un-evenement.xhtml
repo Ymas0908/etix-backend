@@ -26,13 +26,14 @@
                             <div class="col-12">
                                 <h4 class="font-bold my-3">Création d'un nouvel événement</h4>
                                 <div class="my-3">
-                                    <span>
-                                        <i class="pi pi-info-circle"></i>
-                                        Veuillez remplir les champs suivants
-                                    </span>
+                            <span>
+                                <i class="pi pi-info-circle"></i>
+                                Veuillez remplir les champs suivants
+                            </span>
                                 </div>
 
                                 <div class="ui-fluid formgrid grid">
+                                    <!-- Champs existants -->
                                     <div class="field col-6">
                                         <p:outputLabel for="nomEvenement">Nom de l'événement</p:outputLabel>
                                         <p:inputText id="nomEvenement"
@@ -50,7 +51,6 @@
                                                      requiredMessage="Le lieu de l'événement est obligatoire"
                                                      value="#{creerEvenementMB.evenement.lieu}"/>
                                     </div>
-
 
                                     <div class="field col-6">
                                         <p:outputLabel for="dateEvenement">Date et heure de l'événement</p:outputLabel>
@@ -83,6 +83,38 @@
                                                          autoResize="false"
                                                          style="width: 100%; height: 150px;"/>
                                     </div>
+
+                                    <!-- Nouveaux champs pour les prix des tickets -->
+                                    <div class="field col-4">
+                                        <p:outputLabel for="prixTicketGP">Prix Ticket GP</p:outputLabel>
+                                        <p:inputNumber id="prixTicketGP"
+                                                     placeholder="Prix du ticket GP"
+                                                     required="true"
+                                                     requiredMessage="Le prix du ticket GP est obligatoire"
+                                                     value="#{creerEvenementMB.evenement.prixTicketGP}"
+                                                     label="Prix Ticket GP"/>
+                                    </div>
+
+                                    <div class="field col-4">
+                                        <p:outputLabel for="prixTicketVIP">Prix Ticket VIP</p:outputLabel>
+                                        <p:inputNumber id="prixTicketVIP"
+                                                     placeholder="Prix du ticket VIP"
+                                                     required="true"
+                                                     requiredMessage="Le prix du ticket VIP est obligatoire"
+                                                     value="#{creerEvenementMB.evenement.prixTicketVIP}"
+                                                     label="Prix Ticket VIP"/>
+                                    </div>
+
+                                    <div class="field col-4">
+                                        <p:outputLabel for="prixTicketVVIP">Prix Ticket VVIP</p:outputLabel>
+                                        <p:inputNumber id="prixTicketVVIP"
+                                                     placeholder="Prix du ticket VVIP"
+                                                     required="true"
+                                                     requiredMessage="Le prix du ticket VVIP est obligatoire"
+                                                     value="#{creerEvenementMB.evenement.prixTicketVVIP}"
+                                                     label="Prix Ticket VVIP"/>
+                                    </div>
+
                                 </div>
 
                                 <div class="flex my-3">

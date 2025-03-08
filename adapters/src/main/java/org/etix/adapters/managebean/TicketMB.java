@@ -5,7 +5,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.etix.adapters.driver.facades.GenererUnTicketFacade;
+import org.etix.adapters.driver.facades.CreerUnTicketFacade;
 import org.etix.adapters.entities.EvenementEntity;
 import org.etix.adapters.entities.TicketEntity;
 import org.etix.adapters.notification.FlashMessage;
@@ -20,7 +20,7 @@ import java.util.List;
 @ViewScoped
 @Getter
 @Setter
-public class TicketMB implements Serializable  {
+public class TicketMB implements Serializable {
 
     private TicketEntity ticket;
     private TypeTicket typeTicket;
@@ -30,37 +30,24 @@ public class TicketMB implements Serializable  {
     private EvenementEntity evenement;
 
     @Autowired
-    private GenererUnTicketFacade genererUnTicketFacade;
-
-
+    private CreerUnTicketFacade creerUnTicketFacade;
 
     @PostConstruct
     public void init() {
         ticketList = new ArrayList<>();
         ticket = new TicketEntity();
-        typeTicketList = TypeTicket.getTypes();
+        typeTicketList = TypeTicket.getTypes(); // Obtient les types de tickets disponibles (GP, VIP, VVIP)
+        evenementList = new ArrayList<>();
     }
-
-
-
 
     public void creerUnTicket() {
         try {
-            if (ticket.getEvenement() == null) {
-                System.out.println("Événement non défini pour le ticket.");
-            }
-            ticket = genererUnTicketFacade.creerUnTicket(ticket);
-            FlashMessage.flash(FlashMessage.INFO, "Succès", "Le ticket à bien été crée.");
+            ticket = creerUnTicketFacade.creerUnTicket(ticket);  // Appel à la méthode de création du tick
+            FlashMessage.flash(FlashMessage.INFO, "Succès", "Le ticket a bien été créé.");
+
         } catch (Exception e) {
             e.printStackTrace();
-            FlashMessage.flash(FlashMessage.ERROR, "Erreur", "Une erreur s'est produite.");
+            FlashMessage.flash(FlashMessage.ERROR, "Erreur", "Une erreur s'est produite lors de la création du ticket.");
         }
     }
-
-
-
-
-
-
-
 }

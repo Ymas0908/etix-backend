@@ -22,11 +22,11 @@ public class EvenementEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nom;
-    private String lieu;
     private String description;
-    private double prixTicketGP;
-    private double prixTicketVIP;
-    private double prixTicketVVIP;
+    private String lieu;
+    private Double prixTicketGP;
+    private Double prixTicketVIP;
+    private Double prixTicketVVIP;
     private LocalDateTime dateEvenement;
     private LocalDateTime dateHeureCreation;
     @Enumerated(EnumType.STRING)
@@ -37,10 +37,10 @@ public class EvenementEntity {
                 .id(evenement.getId())
                 .nom(evenement.getNom())
                 .lieu(evenement.getLieu())
-                .description(evenement.getDescription())
                 .prixTicketGP(evenement.getPrixTicketGP())
                 .prixTicketVIP(evenement.getPrixTicketVIP())
                 .prixTicketVVIP(evenement.getPrixTicketVVIP())
+                .description(evenement.getDescription())
                 .dateEvenement(evenement.getDateEvenement())
                 .dateHeureCreation(evenement.getDateHeureCreation())
                 .typeEvenement(evenement.getTypeEvenement())
@@ -52,10 +52,10 @@ public class EvenementEntity {
                 .id(this.id)
                 .nom(this.nom)
                 .lieu(this.lieu)
-                .description(this.description)
                 .prixTicketGP(this.prixTicketGP)
                 .prixTicketVIP(this.prixTicketVIP)
                 .prixTicketVVIP(this.prixTicketVVIP)
+                .description(this.description)
                 .dateEvenement(this.dateEvenement)
                 .dateHeureCreation(this.dateHeureCreation)
                 .typeEvenement(this.typeEvenement)

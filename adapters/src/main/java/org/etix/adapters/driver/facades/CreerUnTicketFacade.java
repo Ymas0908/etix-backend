@@ -9,12 +9,12 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class GenererUnTicketFacade {
+public class CreerUnTicketFacade {
 
     private  TicketPort ticketPort;
 
     public TicketEntity creerUnTicket(TicketEntity ticket) {
-        return TicketEntity.toEntity(ticketPort.saveTicket(ticket.toDomain()));
+        return TicketEntity.toEntity(ticketPort.creerTicket(ticket.toDomain()));
     }
 
 
