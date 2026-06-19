@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         info = @Info(
                 title = "TickUp Subs API",
                 version = "1.0",
-                description = "API pour la gestion des usagers",
+                description = "Registre des Apis pour l'authentification des utilisateurs",
                 license = @License(
                         name = "MIT License",
                         url = "https://opensource.org/licenses/MIT"

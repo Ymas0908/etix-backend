@@ -21,7 +21,7 @@ import org.tickup.adapters.utils.AppUtils;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@Tag(name = "Gestion d'authentification", description = "API pour l'authentification des utilisateurs")
+@Tag(name = "Gestion d'authentification", description = "Registre des Apis pour l'authentification des utilisateurs")
 @Slf4j
 public class AuthController {
     private final AuthService authService;
